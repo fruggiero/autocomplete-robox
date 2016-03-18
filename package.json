@@ -1,6 +1,6 @@
 {
   "name": "autocomplete-robox",
-  "main": "./lib/autocomplete-robox",
+  "main": "./lib/main",
   "version": "0.0.0",
   "description": "Autocomplete provider for R3 robox programming language",
   "keywords": [
@@ -17,7 +17,7 @@
   "providedServices": {
     "autocomplete.provider": {
       "versions": {
-        "2.0.0": "provider"
+        "2.0.0": "getProvider"
       }
     }
   },

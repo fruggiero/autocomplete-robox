@@ -1,0 +1,19 @@
+{
+  "name": "autocomplete-robox",
+  "main": "./lib/autocomplete-robox",
+  "version": "0.0.0",
+  "description": "Autocomplete provider for R3 robox programming language",
+  "keywords": [
+    "robox",
+    "r3",
+    "autocomplete",
+    "provider"
+  ],
+  "repository": "https://github.com/fruggiero/autocomplete-robox",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+  }
+}

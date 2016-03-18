@@ -1,33 +1,22 @@
-AutocompleteRoboxView = require './autocomplete-robox-view'
-{CompositeDisposable} = require 'atom'
+provider =
+  selector: '.source.r3'
+  #disableForSelector: '.source.js .comment'
 
-module.exports = AutocompleteRobox =
-  autocompleteRoboxView: null
-  modalPanel: null
-  subscriptions: null
+  # This will take priority over the default provider, which has a priority of 0.
+  # `excludeLowerPriority` will suppress any providers with a lower priority
+  # i.e. The default provider will be suppressed
+  inclusionPriority: 1
+  excludeLowerPriority: true
 
-  activate: (state) ->
-    @autocompleteRoboxView = new AutocompleteRoboxView(state.autocompleteRoboxViewState)
-    @modalPanel = atom.workspace.addModalPanel(item: @autocompleteRoboxView.getElement(), visible: false)
+  # Required: Return a promise, an array of suggestions, or null.
+  getSuggestions: ({editor, bufferPosition, scopeDescriptor, prefix, activatedManually}) ->
+    new Promise (resolve) ->
+      resolve([text: 'something'])
 
-    # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
-    @subscriptions = new CompositeDisposable
+  # (optional): called _after_ the suggestion `replacementPrefix` is replaced
+  # by the suggestion `text` in the buffer
+  onDidInsertSuggestion: ({editor, triggerPosition, suggestion}) ->
 
-    # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-workspace', 'autocomplete-robox:toggle': => @toggle()
-
-  deactivate: ->
-    @modalPanel.destroy()
-    @subscriptions.dispose()
-    @autocompleteRoboxView.destroy()
-
-  serialize: ->
-    autocompleteRoboxViewState: @autocompleteRoboxView.serialize()
-
-  toggle: ->
-    console.log 'AutocompleteRobox was toggled!'
-
-    if @modalPanel.isVisible()
-      @modalPanel.hide()
-    else
-      @modalPanel.show()
+  # (optional): called when your provider needs to be cleaned up. Unsubscribe
+  # from things, kill any processes, etc.
+  dispose: ->

@@ -1,14 +1,577 @@
 {
   "constants":[
     {
+      "text":"AG_DISABLE",
+      "description":"0 (AG_DISABLE) = Disabilitato",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_MIS_POW",
+      "description":"1 (AG_MIS_POW) = Missing Power",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_MANUAL",
+      "description":"2 (AG_MANUAL) = Manuale",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_EXEC",
+      "description":"3 (AG_EXEC) = Esecuzione traiettorie",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_ZERO_WAIT",
+      "description":"4 (AG_ZERO_WAIT) = Attesa azzeramento",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
       "text":"AG_ZERO_EXE",
-      "description":"5 (AG_ZERO_EXEC) = Azzeramento"
+      "description":"5 (AG_ZERO_EXE) = Azzeramento",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_MAN_NOZ",
+      "description":"6 (AG_MAN_NOZ) = Manuale prima dell'azzeramento",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_PASSIVE",
+      "description":"7 (AG_PASSIVE) = Passivo",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_BYPASS_POWER",
+      "description":"bit 0 (AG_BYPASS_POWER) Bypass Power Set.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_AFTER_RULES",
+      "description":"bit 1 (AG_AFTER_RULES) Esecuzione dopo le rules.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_ABORT_ON_EOS",
+      "description":"bit 2 (AG_ABORT_ON_EOS) Abort traiettoria su finecorsa.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_NO_ABORT_PATH",
+      "description":"bit 3 (AG_NO_ABORT_PATH) Disabilitazione auto reset path su mis_pow.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_NO_JOINT_LIMIT",
+      "description":"bit 4 (AG_NO_JOINT_LIMIT) Disabilitazione inseguimento joint.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_SET_MOTOR_ON_POW",
+      "description":"bit 5 (AG_SET_MOTOR_ON_POW) Abilitazione modifica motor in potenza.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_RESET_ANGLES",
+      "description":"bit 6 (AG_RESET_ANGLES) Reset angoli orientamento alla soluzione base.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_SOVRA_ALL_MOVES",
+      "description":"bit 7 (AG_SOVRA_ALL_MOVES) Abilitazione sovrapposizione totale moves.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_PATH_LIMIT_ON_ACC",
+      "description":"bit 8 (AG_PATH_LIMIT_ON_ACC) Abilitazione autolimitazione path a causa delle max_acc_j.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_USE_TAN_PARAMS",
+      "description":"bit 9 (AG_USE_TAN_PARAMS) Abilitazione tan_spe, tan_acc e tan_jer nelle move cart.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_USE_K_WRISTS",
+      "description":"bit 10 (AG_USE_K_WRISTS) Abilitazione k_spe_w, k_acc_w e k_jer_w per polsi nelle move cart.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_STOP_ON_ANGLES",
+      "description":"bit 11 (AG_STOP_ON_ANGLES) Abilitazione stop programmati su discontinuità path.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_HANDLE_FAST_STOP",
+      "description":"bit 12 (AG_HANDLE_FAST_STOP) Abilitazione gestione FAST STOP su caduta potenza.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_DECEL",
+      "description":"bit 0 (AG_DECEL) Inizio decelerazione finale.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_IN_POS",
+      "description":"bit 1 (AG_IN_POS) Fine esecuzione.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_HOLDED",
+      "description":"bit 2 (AG_HOLDED) Esecuzione arrestata (HOLD).",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_STOP",
+      "description":"bit 3 (AG_STOP) Esecuzione path ferma su punto di stop.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_FAST_STOP",
+      "description":"bit 4 (AG_FAST_STOP) Esecuzione FAST STOP in corso.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_DEBUG_MOVES",
+      "description":"bit 0 (AG_DEBUG_MOVES) Info su esecuzione delle moves.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_DEBUG_COMPILE",
+      "description":"bit 1 (AG_DEBUG_COMPILE) Info su compilazione path.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"M_IN_ALARM",
+      "description":"-6 (M_IN_ALARM) Situazione di allarme presente.",
+      "type":"constant",
+      "leftLabel":"int"
+    },
+    {
+      "text":"M_REACHED",
+      "description":"6 (M_REACHED) Target raggiunto/missione terminata.",
+      "type":"constant",
+      "leftLabel":"int"
+    },
+    {
+      "text":"M_OVERSHOOTING",
+      "description":"13 (M_OVERSHOOTING) La posizione target è/sarà oltrepassata.",
+      "type":"constant",
+      "leftLabel":"int"
+    },
+    {
+      "text":"M_ACCEL",
+      "description":"15 (M_ACCEL) Accelerazione in corso.",
+      "type":"constant",
+      "leftLabel":"int"
+    },
+    {
+      "text":"M_AT_SPEED",
+      "description":"16 (M_AT_SPEED) Movimentazione a regime.",
+      "type":"constant",
+      "leftLabel":"int"
+    },
+    {
+      "text":"M_DECEL",
+      "description":"17 (M_DECEL) Decelerazione in corso.",
+      "type":"constant",
+      "leftLabel":"int"
+    },
+    {
+      "text":"AG_MAN_SLOW",
+      "description":"bit 0 (AG_MAN_SLOW) Riduzione a 10% delle velocita' e acc.",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_MAN_CART",
+      "description":"bit 1 (AG_MAN_CART) Movimentazione cartesiana assoluta",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_MAN_TOOL",
+      "description":"bit 2 (AG_MAN_TOOL) Movimentazione cartesiana TOOL",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_MAN_MOTOR",
+      "description":"bit 3 (AG_MAN_MOTOR) Movimentazione motori",
+      "type":"constant",
+      "leftLabel":"u32"
+    },
+    {
+      "text":"AG_MAN_STEP",
+      "description":"bit 4 (AG_MAN_STEP) Abilitazione fermata su griglia (man_step e man_offs)",
+      "type":"constant",
+      "leftLabel":"u32"
     }
   ],
   "methods":[
     {
       "text":"AG_ZERO_EXEassssss",
-      "description":"5 (AG_ZERO_EXEC) = Azzeramento"
+      "description":"5 (AG_ZERO_EXEC) = Azzeramento",
+      "type":"method"
+    }
+  ],
+  "types":[
+    {
+      "text":"bool",
+      "type":"type",
+      "description":"tipo di dato booleano"
+    },
+    {
+      "text":"char",
+      "type":"type",
+      "description":"tipo di dato char (è come i8) "
+    },
+    {
+      "text":"counter",
+      "type":"type",
+      "description":"contatore"
+    },
+    {
+      "text":"float",
+      "type":"type",
+      "description":"tipo di dato floating point a 4 byte"
+    },
+    {
+      "text":"int",
+      "type":"type",
+      "description":"tipo di dato intero a 32 bit con segno (è come i32)"
+    },
+    {
+      "text":"i16",
+      "type":"type",
+      "description":"tipo di dato intero a 16 bit con segno"
+    },
+    {
+      "text":"i32",
+      "type":"type",
+      "description":"tipo di dato intero a 32 bit con segno (è come int)"
+    },
+    {
+      "text":"i8",
+      "type":"type",
+      "description":"tipo di dato intero a 8 bit con segno (è come int)"
+    },
+    {
+      "text":"power_set",
+      "type":"type",
+      "description":"tipo di dato per la gestione della potenza"
+    },
+    {
+      "text":"real",
+      "type":"type",
+      "description":"tipo di dato floating point 8 Byte (double)"
+    },
+    {
+      "text":"string",
+      "type":"type",
+      "description":"tipo di dato stringa (127 char + terminatore)"
+    },
+    {
+      "text":"timer",
+      "type":"type",
+      "description":"tipo di dato timer"
+    },
+    {
+      "text":"u16",
+      "type":"type",
+      "description":"tipo di dato intero a 16 bit senza segno"
+    },
+    {
+      "text":"u32",
+      "type":"type",
+      "description":"tipo di dato intero a 32 bit senza segno"
+    },
+    {
+      "text":"u8",
+      "type":"type",
+      "description":"tipo di dato intero a 8 bit senza segno"
+    },
+    {
+      "text":"BCC_MSGUSER",
+      "type":"type"
+    },
+    {
+      "text":"STRU_AH_D",
+      "type":"type"
+    },
+    {
+      "text":"STRU_AH_INFO",
+      "type":"type"
+    },
+    {
+      "text":"STRU_AS_D",
+      "type":"type"
+    },
+    {
+      "text":"STRU_CAM",
+      "type":"type"
+    },
+    {
+      "text":"STRU_COERRMSG",
+      "type":"type"
+    },
+    {
+      "text":"STRU_CO_OBJ",
+      "type":"type"
+    },
+    {
+      "text":"stru_crimper",
+      "type":"type"
+    },
+    {
+      "text":"STRU_FILEHND",
+      "type":"type"
+    },
+    {
+      "text":"STRU_FILEINFO",
+      "type":"type"
+    },
+    {
+      "text":"STRU_FOLLOW",
+      "type":"type"
+    },
+    {
+      "text":"STRU_FOLLOW2",
+      "type":"type"
+    },
+    {
+      "text":"STRU_FOLLOW2_info",
+      "type":"type"
+    },
+    {
+      "text":"STRU_FOLLOW2_S",
+      "type":"type"
+    },
+    {
+      "text":"STRU_FOLLOW2_SM",
+      "type":"type"
+    },
+    {
+      "text":"stru_gror",
+      "type":"type"
+    },
+    {
+      "text":"stru_int",
+      "type":"type"
+    },
+    {
+      "text":"STRU_MASTERF",
+      "type":"type"
+    },
+    {
+      "text":"STRU_MATCAM",
+      "type":"type"
+    },
+    {
+      "text":"STRU_MODBUS",
+      "type":"type"
+    },
+    {
+      "text":"STRU_MVGENITP",
+      "type":"type"
+    },
+    {
+      "text":"STRU_MVITP",
+      "type":"type"
+    },
+    {
+      "text":"STRU_MVITPCJ",
+      "type":"type"
+    },
+    {
+      "text":"STRU_MVTO",
+      "type":"type"
+    },
+    {
+      "text":"STRU_MVTOCJ",
+      "type":"type"
+    },
+    {
+      "text":"STRU_MVTOCJV",
+      "type":"type"
+    },
+    {
+      "text":"STRU_MVTOCJV_INFO",
+      "type":"type"
+    },
+    {
+      "text":"STRU_MVTOCJVE",
+      "type":"type"
+    },
+    {
+      "text":"STRU_MVZC",
+      "type":"type"
+    },
+    {
+      "text":"STRU_PHADJ",
+      "type":"type"
+    },
+    {
+      "text":"STRU_PHADJ2",
+      "type":"type"
+    },
+    {
+      "text":"STRU_REACHTARGET",
+      "type":"type"
+    },
+    {
+      "text":"STRU_STAT",
+      "type":"type"
+    },
+    {
+      "text":"STRU_SYNCHRO",
+      "type":"type"
+    },
+    {
+      "text":"STRU_TRACK",
+      "type":"type"
+    },
+    {
+      "text":"AXES_GROUP",
+      "type":"type",
+      "description":"tipo di dato che rappresenta un gruppo d'assi"
+    },
+    {
+      "text":"PATH",
+      "type":"type"
+    },
+    {
+      "text":"POINT_L",
+      "type":"type"
+    },
+    {
+      "text":"POINT_C",
+      "type":"type"
+    },
+    {
+      "text":"POINT_J",
+      "type":"type"
+    },
+    {
+      "text":"TRANSFORM",
+      "type":"type"
+    },
+    {
+      "text":"STRU_ISO_DATA",
+      "type":"type"
+    }
+  ],
+  "snippets":[
+    {
+      "snippet":"function ${1:int} ${2:functionName}($3)\n\t$4\nendfun$0",
+      "displayText":"func",
+      "rightLabel":"function",
+      "type":"snippet"
+    },
+    {
+      "snippet":"function ${1:functionName}($2)\n\t$3\nendfun$0",
+      "displayText":"funcv",
+      "rightLabel":"void function",
+      "type":"snippet"
+    },
+    {
+      "snippet":"select (${1:var})\n\tcase ${2:1}\n\t\t$3\n\t\tbreak\n\tdefault\n\t\t$4\n\t\tbreak\nendselect$0",
+      "displayText":"select",
+      "rightLabel":"select case",
+      "type":"snippet"
+    },
+    {
+      "snippet":"while (${1:true})\n\t$2\nendwhile$0",
+      "displayText":"while",
+      "rightLabel":"while loop",
+      "type":"snippet"
+    },
+    {
+      "snippet":"do\n\t$1\nend_do_while$0",
+      "displayText":"do",
+      "rightLabel":"do..while",
+      "type":"snippet"
+    },
+    {
+      "snippet":"struct\n\t$1\nendstruct$0",
+      "displayText":"struct",
+      "rightLabel":"struct definition",
+      "type":"snippet"
+    },
+    {
+      "snippet":"tabstr\n\t$1\nendtab$0",
+      "displayText":"tabstr",
+      "rightLabel":"tabstr definition",
+      "type":"snippet"
+    },
+    {
+      "snippet":"motion\n\t$1\nendmotion$0",
+      "displayText":"motion",
+      "rightLabel":"motion definition ",
+      "type":"snippet"
+    },
+    {
+      "snippet":"aux\n\t$1\nendaux$0",
+      "displayText":"aux",
+      "rightLabel":"aux definition",
+      "type":"snippet"
+    },
+    {
+      "snippet":"ref\n\t$1\nendref$0",
+      "displayText":"ref",
+      "rightLabel":"ref definition",
+      "type":"snippet"
+    },
+    {
+      "snippet":"rule\n\t$1\nendrule$0",
+      "displayText":"rule",
+      "rightLabel":"rule definition",
+      "type":"snippet"
+    },
+    {
+      "snippet":"for (${1:i} = 0 , ${1:i} < ${2:10}, ${1:i} = ${1:i} + 1)\n\t$3\nendfor$0",
+      "displayText":"for",
+      "rightLabel":"for loop",
+      "type":"snippet"
+    },
+    {
+      "snippet":"if (${1:true})\n\t$2\nendif$0",
+      "displayText":"if",
+      "rightLabel":"if",
+      "type":"snippet"
+    },
+    {
+      "snippet":"if (${1:true})\n\t$2\nelse\n\t$3\nendif$0",
+      "displayText":"ife",
+      "rightLabel":"if else",
+      "type":"snippet"
     }
   ]
 }

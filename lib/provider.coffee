@@ -1,6 +1,6 @@
 #
 #Esempio:  https://github.com/Azakur4/autocomplete-php/blob/master/lib/provider.coffee
-#
+#          http://stackoverflow.com/questions/835682/how-does-intellisense-work-in-visual-studio
 
 fs = require 'fs'
 path = require 'path'
@@ -17,31 +17,45 @@ module.exports =
   excludeLowerPriority: true
 
   # Required: Return a promise, an array of suggestions, or null.
+   # {editor, bufferPosition, scopeDescriptor, prefix, activatedManually}
   getSuggestions: (request) ->
-    # editor: The current TextEditor
-    # bufferPosition: The position of the cursor
-    # scopeDescriptor: The scope descriptor for the current cursor position
-    # prefix: The prefix for the word immediately preceding the current cursor position
-    # activatedManually: Whether the autocomplete request was initiated by the user (e.g. with ctrl+space)
+    new Promise (resolve) =>
 
-    new Promise (resolve) ->
-      # line = editor.getTextInRange([[bufferPosition.row, 0], bufferPosition])
       # @getCompletions(line)
 
-      if true
-        resolve(@getAllCompletions(request))
-      else
+      console.log request
+      if not @mustAutocomplete(request)
         resolve([])
+      else
+        resolve(@getAllCompletions(request))
 
-
-  getAllCompletions: ({editor, prefix}) ->
+  getAllCompletions: ({editor, prefix , activatedManually}) ->
     completions = []
     lowerCasePrefix = prefix.toLowerCase()
 
-    for constants in @completions.constants when constants.text.toLowerCase().indexOf(lowerCasePrefix) is 0
-      completions.push(@buildCompletion(constants))
+    if activatedManually
+      for constants in @completions.constants
+        completions.push(@buildCompletion(constants))
+      for snippets in @completions.snippets
+        completions.push(@buildCompletion(snippets))
+      for types in @completions.types
+        completions.push(@buildCompletion(types))
+    else
+      for constants in @completions.constants when constants.text.toLowerCase().indexOf(lowerCasePrefix) is 0
+        completions.push(@buildCompletion(constants))
+      for snippets in @completions.snippets when snippets.displayText.toLowerCase().indexOf(lowerCasePrefix) is 0
+        completions.push(@buildCompletion(snippets))
+      for types in @completions.types when types.text.toLowerCase().indexOf(lowerCasePrefix) is 0
+        completions.push(@buildCompletion(types))
 
     completions
+
+  mustAutocomplete: ({bufferPosition, editor}) ->
+    line = editor.getTextInRange([[bufferPosition.row, 0], bufferPosition]).trim()
+    if line.startsWith("function")
+      return false
+    else
+      return true
 
   load: ->
     #Load completions from file
@@ -51,12 +65,13 @@ module.exports =
       return
 
   buildCompletion: (suggestion) ->
-    text: suggestion.text
-    type: suggestion.type
+    text: suggestion.text ?= null
+    type: suggestion.type  #variable, constant, property, value, method, function, class, type, keyword, tag, snippet, import, require.
     displayText: suggestion.displayText ?= null
     snippet: suggestion.snippet ?= null
     leftLabel: suggestion.leftLabel ?= null
-    description: suggestion.description ?= "R3 <#{suggestion.text}> #{suggestion.type}"
+    rightLabel: suggestion.rightLabel ?= null
+    description: suggestion.description ?= null
     descriptionMoreURL: suggestion.descriptionMoreURL ?= null
 
   firstCharsEqual: (str1, str2) ->

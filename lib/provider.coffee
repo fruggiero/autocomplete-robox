@@ -1,6 +1,7 @@
 #
 #Esempio:  https://github.com/Azakur4/autocomplete-php/blob/master/lib/provider.coffee
 #          http://stackoverflow.com/questions/835682/how-does-intellisense-work-in-visual-studio
+#          http://stackoverflow.com/questions/1220099/how-does-code-completion-work
 
 fs = require 'fs'
 path = require 'path'
@@ -24,7 +25,7 @@ module.exports =
       # @getCompletions(line)
 
       console.log request
-      if not @mustAutocomplete(request)
+      if @notShowAutocomplete(request)
         resolve([])
       else
         resolve(@getAllCompletions(request))
@@ -50,12 +51,21 @@ module.exports =
 
     completions
 
-  mustAutocomplete: ({bufferPosition, editor}) ->
-    line = editor.getTextInRange([[bufferPosition.row, 0], bufferPosition]).trim()
-    if line.startsWith("function")
-      return false
-    else
-      return true
+  notShowAutocomplete: (request) ->
+    # line = editor.getTextInRange([[bufferPosition.row, 0], bufferPosition]).trim()
+
+    return true if @isInString(request)
+
+    return false
+    # if line.startsWith("function")
+    #   return false
+    # else
+    #   return true
+
+  isInString: ({scopeDescriptor}) ->
+    scopes = scopeDescriptor.getScopesArray()
+    return true if scopes.indexOf('string.quoted.single.r3') isnt -1 or
+      scopes.indexOf('string.quoted.double.r3') isnt -1
 
   load: ->
     #Load completions from file
@@ -76,6 +86,8 @@ module.exports =
 
   firstCharsEqual: (str1, str2) ->
     str1[0].toLowerCase() is str2[0].toLowerCase()
+
+
 
   # (optional): called _after_ the suggestion `replacementPrefix` is replaced
   # by the suggestion `text` in the buffer

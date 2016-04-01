@@ -55,7 +55,7 @@ module.exports =
     # line = editor.getTextInRange([[bufferPosition.row, 0], bufferPosition]).trim()
 
     return true if @isInString(request)
-
+    return true if @isInComment(request)
     return false
     # if line.startsWith("function")
     #   return false
@@ -66,6 +66,13 @@ module.exports =
     scopes = scopeDescriptor.getScopesArray()
     return true if scopes.indexOf('string.quoted.single.r3') isnt -1 or
       scopes.indexOf('string.quoted.double.r3') isnt -1
+
+  isInComment: ({scopeDescriptor}) ->
+    scopes = scopeDescriptor.getScopesArray()
+    if scopes.indexOf('comment.line.character.r3') isnt -1
+      return true
+    else
+      return false
 
   load: ->
     #Load completions from file

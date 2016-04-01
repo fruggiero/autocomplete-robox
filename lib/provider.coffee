@@ -3,6 +3,9 @@
 #          http://stackoverflow.com/questions/835682/how-does-intellisense-work-in-visual-studio
 #          http://stackoverflow.com/questions/1220099/how-does-code-completion-work
 
+#          http://www.antlr3.org/pipermail/antlr-interest/2006-April/015905.html
+#          http://stackoverflow.com/questions/1723275/tolerating-malformed-statements-with-antlr-e-g-for-code-completion
+#          http://stackoverflow.com/questions/19738439/is-it-feasible-to-use-antlr-for-source-code-completion
 fs = require 'fs'
 path = require 'path'
 
@@ -69,10 +72,7 @@ module.exports =
 
   isInComment: ({scopeDescriptor}) ->
     scopes = scopeDescriptor.getScopesArray()
-    if scopes.indexOf('comment.line.character.r3') isnt -1
-      return true
-    else
-      return false
+    return scopes.indexOf('comment.line.character.r3') isnt -1
 
   load: ->
     #Load completions from file
